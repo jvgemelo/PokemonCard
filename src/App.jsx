@@ -26,8 +26,8 @@ function App() {
       <PokemonCard key={contador} />
       <div className='p-8' >
         
-        <button className="card active:scale-90 rounded-lg border border-transparent py-3 px-6 text-base font-medium
-         transition duration-250 hover:border-gray-300 bg-darkGray border-b-veryDarkDesaturated" onClick={cambiarPokemon}>
+        <button className="active:scale-90 rounded-lg border py-3 px-6 text-base font-medium
+          hover:border-gray-300 bg-darkGray border-b-veryDarkDesaturated" onClick={cambiarPokemon}>
           Cambiar Pokemon
         </button>
 
