@@ -2,14 +2,13 @@ import { useState} from 'react'
 import PokemonCard from './components/PokemonCard/PokemonCard'  
 
 function App() {
-
-  const [contador, setContador] = useState(0);
+  
+  const [contador, setContador] = useState(Math.floor(Math.random() * (150 - 1) + 1))
 
   const cambiarPokemon = () => {
-    setContador(num => num + 1);
+    setContador(Math.floor(Math.random() * (150 - 1) + 1))
   }
-
-
+  
   return (
     <>
     
@@ -23,11 +22,13 @@ function App() {
            
       </div>
 
-      <PokemonCard key={contador} />
+      <PokemonCard rnd={contador}/>  
+      
       <div className='p-8' >
         
-        <button className="active:scale-90 rounded-lg border py-3 px-6 text-base font-medium
-          hover:border-gray-300 bg-darkGray border-b-veryDarkDesaturated" onClick={cambiarPokemon}>
+        <button className="disabled:hidden disabled:pointer-events-none active:scale-90 rounded-lg border py-3 px-6 text-base font-medium flex flex-row 
+          hover:border-gray-300 bg-darkGray border-b-veryDarkDesaturated " onClick={cambiarPokemon}>
+          
           Cambiar Pokemon
         </button>
 
