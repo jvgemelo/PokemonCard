@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 // const CONST_ENDPOINT_NUM_POKEMON = `https://pokeapi.co/api/v2/pokemon/`
 
 function PokemonCard() {
-
-
   // ---> Esta bien inicializar el componente, pero deberias hacerlo con la funcion que genere el numero ramdon
   //      ya que luego vuelves a usar ese mismo codigo en otras partes
   const [contador, setContador] = useState(
@@ -16,15 +14,30 @@ function PokemonCard() {
     setContador(Math.floor(Math.random() * (150 - 1) + 1));
   };
 
-  useEffect(() => {
-    setLoading(true);
-    // ---> El fetch esta bien, pero metelo dentro de una funcion que la llames dentro del useEffect, haz control de errores dentro de la funcion
-    fetch(`https://pokeapi.co/api/v2/pokemon/${contador}`)
-      .then((response) => response.json())
-      .then((data) => {
+  const cogerPokemon = async (contador) => {
+    try {
+      console.log("Hola que tal " + contador);
+      setLoading(true);
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${contador}`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
         setPokemonData(data);
-        setLoading(false);
-      });
+      } else {
+        throw new Error("Error al cargar el Pokémon");
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // ---> El fetch esta bien, pero metelo dentro de una funcion que la llames dentro del useEffect, haz control de errores dentro de la funcion
+    cogerPokemon(contador);
   }, [contador]);
 
   // ---> Quita lo que no uses
@@ -66,7 +79,6 @@ function PokemonCard() {
                 </div>
 
                 <div className="flex flex-row justify-center m-auto w-64 h-64 ">
-                  {/* <img className='relative bg-white rounded-full w-3/4 m-6 ring-offset-2 ring-4 ring-white' src={`${pokemonData.sprites.front_default}`} alt="Pokemon mostrandose" />  */}
                   <img
                     className="relative bg-white rounded-full  m-6 w-3/4 h-3/4 ring-8 ring-white"
                     src={`${pokemonData?.sprites.other.dream_world.front_default}`}
@@ -74,9 +86,10 @@ function PokemonCard() {
                   />
                 </div>
                 <div className="-mt-6">
-                  <p className="font-sans text-black capitalize">
-                    {" "}
-                    <strong>{pokemonData?.name}</strong>{" "}
+                  <p className="flex flex-row space-x-2  font-sans items-center align-middle justify-center">
+                    <p className="font-bold capitalize text-black">
+                      {pokemonData?.name}
+                    </p>
                     <span className="text-darkGrayishBlue">
                       {pokemonData?.stats[0].base_stat} hp
                     </span>
@@ -84,24 +97,27 @@ function PokemonCard() {
                   <p className="font-sans pb-3 text-darkGrayishBlue">
                     {pokemonData?.base_experience} exp
                   </p>
-                  {/* {pokemonData && <p>{pokemonData.sprites.front_default}</p>} */}
                 </div>
               </div>
               <div className=" flex flex-row justify-center m-auto space-x-12 text-xs font-sans  border-t-black ">
-                <p className="font-sans text-black">
-                  <strong> {pokemonData?.stats[1].base_stat}K </strong>
-                  <br /> <br />
-                  Ataque{" "}
-                </p>
-                <p className="font-sans text-black">
-                  <strong>{pokemonData?.stats[3].base_stat}K </strong> <br />
-                  <br /> Ataque Especial
-                </p>
-                <p className="font-sans text-black">
-                  <strong>{pokemonData?.stats[2].base_stat}K </strong> <br />{" "}
-                  <br />
-                  Defensa
-                </p>
+                <div className="flex flex-col font-sans text-black text-wrap">
+                  <p className="font-bold pb-2">
+                    {pokemonData?.stats[1].base_stat}K
+                  </p>
+                  <p>Ataque</p>
+                </div>
+                <div className="flex flex-col  font-sans text-black">
+                  <p className="font-bold pb-2">
+                    {pokemonData?.stats[3].base_stat}K
+                  </p>
+                  <p>Ataque Especial</p>
+                </div>
+                <div className="flex flex-col font-sans text-black">
+                  <p className="font-bold pb-2">
+                    {pokemonData?.stats[2].base_stat}K
+                  </p>
+                  <p>Defensa</p>
+                </div>
               </div>
             </div>
             <div className="p-8 flex flex-col align-middle items-center ">
