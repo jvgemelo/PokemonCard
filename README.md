@@ -1,8 +1,30 @@
-# React + Vite
+# Pokemon Card
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Replicar la pagina web https://card-poke-simple.netlify.app/
 
-Currently, two official plugins are available:
+Requisitos:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Utilizar vite para crear el proyecton Cardn Cardn Card
+- Instalar tailwind
+
+Reglas:
+
+- No usar chatgpt
+- No replicar el dom del inspeccionar
+- Utilizar solo tailwind y dividir en los componentes que se vean oportunos.
+
+Objetivos:
+
+- Replicar la web y añadir un boton que cargue otro nuevo pokemon al darle click.
+- Anadir los colores desde la configuracion de tailwind.
+- añadir los colores al archivo de configuracion de tailwind
+
+Datos:
+
+- Son 150 pokemon
+- -dark-cyan: hsl(185, 75%, 39%);
+- -very-dark-desaturated: hsl(229, 23%, 23%);
+- -dark-grayish-blue: hsl(227, 10%, 46%);
+- -dark-gray: hsl(0, 0%, 59%);
+
+Recursos
