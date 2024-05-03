@@ -1,5 +1,9 @@
 import PokemonCard from "./components/PokemonCard/PokemonCard";
 
+
+
+// ---> Quita el codigo que no uses
+// ---> Si el componente no tiene child usa el auto-cerrado
 function App() {
   return (
     <>
