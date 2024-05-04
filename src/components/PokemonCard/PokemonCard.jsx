@@ -2,21 +2,19 @@ import { useState, useEffect } from "react";
 // const CONST_ENDPOINT_NUM_POKEMON = `https://pokeapi.co/api/v2/pokemon/`
 
 function PokemonCard() {
-  // ---> Esta bien inicializar el componente, pero deberias hacerlo con la funcion que genere el numero ramdon
-  //      ya que luego vuelves a usar ese mismo codigo en otras partes
-  const [contador, setContador] = useState(
-    Math.floor(Math.random() * (150 - 1) + 1)
-  );
+  const [contador, setContador] = useState(numeroAleatorio);
   const [pokemonData, setPokemonData] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const cambiarPokemon = () => {
-    setContador(Math.floor(Math.random() * (150 - 1) + 1));
+    setContador(numeroAleatorio);
   };
 
+  function numeroAleatorio() {
+    return Math.floor(Math.random() * (150 - 1) + 1);
+  }
   const cogerPokemon = async (contador) => {
     try {
-      console.log("Hola que tal " + contador);
       setLoading(true);
       const response = await fetch(
         `https://pokeapi.co/api/v2/pokemon/${contador}`
@@ -36,12 +34,9 @@ function PokemonCard() {
   };
 
   useEffect(() => {
-    // ---> El fetch esta bien, pero metelo dentro de una funcion que la llames dentro del useEffect, haz control de errores dentro de la funcion
     cogerPokemon(contador);
   }, [contador]);
 
-  // ---> Quita lo que no uses
-  // ---> Puedes dar los estilos correspondientes con <strong> y <br />, usando tailwind
   return (
     <>
       {loading ? (
